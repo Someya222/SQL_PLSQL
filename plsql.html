@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PL/SQL Topics</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+  <h1>PL/SQL Topics</h1>
+
+  
+  <ul>
+    <li><h2 onclick="toggleExplanation('2')">PL/SQL Block Structure</h2></li>
+    <li><h2 onclick="toggleExplanation('3')">PL/SQL Data Types, Variables, and Constants</h2></li>
+    <li><h2 onclick="toggleExplanation('4')">Scope and Visibility of a Variable</h2></li>
+    <li><h2 onclick="toggleExplanation('5')">Assignments and Expressions</h2></li>
+    <li><h2 onclick="toggleExplanation('6')">Conditional and Iterative Control</h2></li>
+    <li><h2 onclick="toggleExplanation('7')">Cursor Management in PL/SQL</h2></li>
+    <li><h2 onclick="toggleExplanation('8')">Exception Handling in PL/SQL</h2></li>
+  </ul>
+  
+  <div class="explanation" id="2">
+    <h2>PL/SQL Block Structure</h2>
+   <p> 
+    Example:
+    <pre><code>
+      DECLARE
+      v_count INT;
+  BEGIN
+      SELECT COUNT(*) INTO v_count FROM employees;
+      DBMS_OUTPUT.PUT_LINE('Total number of employees: ' || v_count);
+  END;
+  
+    </code></pre>
+    Output:
+    <pre><code>
+      Total number of employees: X
+
+    </code></pre>
+   </p>
+  </div>
+
+  <div class="explanation" id="3">
+    <h2>PL/SQL Data Types, Variables, and Constants</h2>
+   <p> 
+    Example:
+    <pre><code>
+      DECLARE
+      v_employee_name employees.name%TYPE := 'John';
+      v_employee_age INT := 30;
+      c_bonus DECIMAL(10, 2) := 500.00;
+  BEGIN
+      DBMS_OUTPUT.PUT_LINE('Employee Name: ' || v_employee_name);
+      DBMS_OUTPUT.PUT_LINE('Employee Age: ' || v_employee_age);
+      DBMS_OUTPUT.PUT_LINE('Bonus Amount: ' || c_bonus);
+  END;
+  
+    </code></pre>
+    Output:
+    <pre><code>
+      Employee Name: John
+Employee Age: 30
+Bonus Amount: 500.00
+
+    </code></pre>
+   </p>
+  </div>
+
+  <div class="explanation" id="4">
+    <h2>Scope and Visibility of a Variable</h2>
+   <p> 
+    Example:
+    <pre><code>
+      DECLARE
+      v_employee_name VARCHAR(50);
+  BEGIN
+      SELECT name INTO v_employee_name FROM employees WHERE id = 1;
+      DBMS_OUTPUT.PUT_LINE('Employee Name: ' || v_employee_name);
+  END;
+  /
+  
+    </code></pre>
+    Output:
+    <pre><code>
+      Employee Name: [Name of employee with ID 1]
+
+    </code></pre>
+   </p>
+  </div>
+
+  <div class="explanation" id="5">
+    <h2>Assignments and Expressions</h2>
+   <p> 
+    Example:
+    <pre><code>
+      DECLARE
+      v_total_salary DECIMAL(10, 2);
+  BEGIN
+      SELECT SUM(salary) INTO v_total_salary FROM employees;
+      DBMS_OUTPUT.PUT_LINE('Total Salary: ' || v_total_salary);
+  END;
+  
+    </code></pre>
+    Output:
+    <pre><code>
+      Total Salary: [Sum of all salaries in the employees table]
+
+    </code></pre>
+   </p>
+  </div>
+
+  <div class="explanation" id="6">
+    <h2>Conditional and Iterative Control</h2>
+   <p> 
+    Example:
+    <pre><code>
+      DECLARE
+      v_bonus DECIMAL(10, 2);
+  BEGIN
+      FOR emp_rec IN (SELECT * FROM employees) LOOP
+          IF emp_rec.salary > 50000 THEN
+              v_bonus := emp_rec.salary * 0.1;
+              DBMS_OUTPUT.PUT_LINE('Bonus for ' || emp_rec.name || ': ' || v_bonus);
+          END IF;
+      END LOOP;
+  END;
+  
+    </code></pre>
+    Output:
+    <pre><code>
+      Bonus for [Employee with salary > 50000]: [Calculated bonus amount]
+
+    </code></pre>
+   </p>
+  </div>
+
+  <div class="explanation" id="7">
+    <h2>Cursor Management in PL/SQL</h2>
+   <p> 
+    Example:
+    <pre><code>
+      DECLARE
+      CURSOR emp_cursor IS SELECT * FROM employees;
+      v_employee employees%ROWTYPE;
+  BEGIN
+      OPEN emp_cursor;
+      LOOP
+          FETCH emp_cursor INTO v_employee;
+          EXIT WHEN emp_cursor%NOTFOUND;
+          DBMS_OUTPUT.PUT_LINE('Employee Name: ' || v_employee.name || ', Salary: ' || v_employee.salary);
+      END LOOP;
+      CLOSE emp_cursor;
+  END;
+  
+    </code></pre>
+    Output:
+    <pre><code>
+      Employee Name: [Name of employee], Salary: [Salary of employee]
+
+    </code></pre>
+   </p>
+  </div>
+
+  <div class="explanation" id="8">
+    <h2>Exception Handling in PL/SQL</h2>
+   <p> 
+    Example:
+    <pre><code>
+      DECLARE
+      v_salary employees.salary%TYPE;
+  BEGIN
+      SELECT salary INTO v_salary FROM employees WHERE id = 1000;
+      DBMS_OUTPUT.PUT_LINE('Salary of Employee with ID 1000: ' || v_salary);
+  EXCEPTION
+      WHEN NO_DATA_FOUND THEN
+          DBMS_OUTPUT.PUT_LINE('Employee with ID 1000 not found.');
+  END;
+  /
+  
+    </code></pre>
+    Output:
+    <pre><code>
+      Employee with ID 1000 not found.
+
+    </code></pre>
+   </p>
+  </div>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>

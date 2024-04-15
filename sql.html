@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SQL Topics</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>SQL Topics</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html" class="tab">Home</a></li>
+        <li><a href="contact.html" class="tab">Contact</a></li> 
+        <li><a href="about.html" class="tab">About</a></li> 
+      </ul>
+    </nav>
+  </header>
+  <main>
+  </header>
+  <main>
+ 
+
+  <ul>
+    <li><h2 onclick="toggleExplanation('table_creation')">Table Creation</h2></li>
+    <li><h2 onclick="toggleExplanation('inserting_values')">Inserting Values</h2></li>
+    <li><h2 onclick="toggleExplanation('updating')">Updating</h2></li>
+    <li><h2 onclick="toggleExplanation('deleting_dropping')">Deleting and Dropping</h2></li>
+    <li><h2 onclick="toggleExplanation('querying_table')">Querying Database Table</h2></li>
+    <li><h2 onclick="toggleExplanation('aggregate_functions')">Aggregate Functions and Grouping</h2></li>
+    <li><h2 onclick="toggleExplanation('views')">Creation and Deletion of Views</h2></li>
+    <li><h2 onclick="toggleExplanation('grant_revoke')">Grant and Revoke Commands</h2></li>
+    <li><h2 onclick="toggleExplanation('commit_rollback')">Commit and Rollback</h2></li>
+    <li><h2 onclick="toggleExplanation('joins')">Joins</h2></li>
+    <li><h2 onclick="toggleExplanation('set_operators')">SET Operators</h2></li>
+  </ul>
+
+  
+  <div class="explanation" id="table_creation">
+    <h2>Table Creation</h2>
+    <p>To create a table in SQL, we follow the syntax:
+       <pre><code>CREATE TABLE table_name (
+        column1 datatype [optional_constraint],
+        column2 datatype [optional_constraint],
+        ...
+        columnN datatype [optional_constraint]
+    );</code></pre> 
+      Example: 
+      <pre><code>
+        CREATE TABLE employees (
+    id INT,
+    name VARCHAR(50),
+    age INT,
+    salary INT
+);
+</code></pre>
+    Output:
+    <pre><code>
+      SQL query successfully executed.
+    </code></pre>
+
+  </div>
+  <div class="explanation" id="inserting_values">
+    <h2>Inserting values</h2>
+   <p>To insert the values in the table, follow the following syntax:
+    <pre><code> 
+        INSERT INTO table_name (column1, column2, ..., columnN)
+VALUES
+    (value1, value2, ..., valueN),
+    (value1, value2, ..., valueN),
+    ...
+    (value1, value2, ..., valueN);
+
+    </code></pre>
+    Example: 
+    <pre><code>
+      INSERT INTO employees (id, name, age, salary) VALUES
+      (1, 'John Doe', 35, 50000),
+      (2, 'Jane Smith', 28, 60000),
+      (3, 'Michael Johnson', NULL, 70000),
+      (4, 'Alice Johnson', 45, 75000),
+      (5, 'Bob Brown', 22, 45000);
+    </code></pre>
+      Output:
+      <pre><code>
+        SQL query successfully executed.
+      </code></pre>
+      Lets see the table. 
+      <pre><code>
+        | id | name            | age | salary   |
+        |----|-----------------|-----|----------|
+        | 1  | John Doe        | 35  | 50000.00 |
+        | 2  | Jane Smith      | 28  | 60000.00 |
+        | 3  | Michael Johnson | NULL| 70000.00 |
+        | 4  | Alice Johnson   | 45  | 75000.00 |
+        | 5  | Bob Brown       | 22  | 45000.00 |
+      </code></pre>
+   </p>
+  </div>
+  <div class="explanation" id="updating">
+    <h2>Updating</h2>
+    <p>For updating a table in SQL, follow the following syntax:
+      Syntax:
+      <pre><code>
+        UPDATE table_name
+SET column1 = value1, column2 = value2, ..., columnN = valueN
+[WHERE condition];
+      </code></pre>
+      Example:
+      <pre><code>
+        UPDATE employees
+SET age = 36
+WHERE name = 'John Doe';
+      </code></pre>
+      Output:
+      <pre><code>
+        SQL query successfully executed.
+      </code></pre>
+    </p>
+  </div>
+  <div class="explanation" id="deleting_dropping">
+    <h2>Deleting and Dropping</h2>
+    <p>For deleting a table in SQL:
+        <pre><code>
+          -- Deleting Rows from a Table
+DELETE FROM employees WHERE age < 25;
+
+-- Dropping a Table
+DROP TABLE employees;
+        </code></pre>
+    </p>
+  </div> 
+  
+  <div class="explanation" id="querying_table">
+    <h2>Querying Database Table</h2>
+    <p>To query a table:</p>
+    <pre><code>
+      -- Retrieve all employees
+      SELECT * FROM employees;
+    </code></pre>
+    <p>Output:</p>
+    <pre><code>
+      | id | name            | age | salary   |
+      |----|-----------------|-----|----------|
+      | 1  | John Doe        | 35  | 50000.00 |
+      | 2  | Jane Smith      | 28  | 60000.00 |
+      | 3  | Michael Johnson | NULL| 70000.00 |
+      | 4  | Alice Johnson   | 45  | 75000.00 |
+      
+    </code></pre>
+</div>
+
+<div class="explanation" id="aggregate_functions">
+  <h2>Aggregate Functions and Grouping </h2>
+ <p>
+  Example:
+  <pre><code>
+    -- Calculating average salary of employees by age group
+SELECT age, AVG(salary) AS avg_salary
+FROM employees
+GROUP BY age;
+  </code></pre>
+  Output:
+  <pre><code>
+    age | avg_salary
+----------------
+28  | 60000.00
+35  | 50000.00
+40  | 70000.00
+
+  </code></pre>
+   </p>
+</div>
+<div class="explanation" id="views">
+  <h2>Creation and Deletion of Views </h2>
+ <p>
+  Example:
+  <pre><code>
+    -- Creating a view to display employees with salary greater than 60000
+CREATE VIEW high_salary_employees AS
+SELECT * FROM employees WHERE salary > 60000;
+
+-- Deleting the created view
+DROP VIEW high_salary_employees;
+
+  </code></pre>
+</p>
+Output:
+<pre><code>
+  View high_salary_employees created.
+View high_salary_employees deleted.
+
+</code></pre>
+</div>
+
+<div class="explanation" id="grant_revoke">
+  <h2>Grant and Revoke Commands</h2>
+ <p> 
+  Example:
+  <pre><code>
+    -- Granting SELECT privilege on the employees table to a user
+GRANT SELECT ON employees TO user1;
+
+-- Revoking INSERT privilege on the employees table from a user
+REVOKE INSERT ON employees FROM user2;
+
+  </code></pre>
+  Output:
+  <pre><code>
+    SELECT privilege granted to user1 on employees table.
+INSERT privilege revoked from user2 on employees table.
+
+  </code></pre>
+ </p>
+</div>
+
+<div class="explanation" id="commit_rollback">
+  <h2>Commit and Rollback</h2>
+ <p> 
+  Example:
+  <pre><code>
+    -- Initiating a transaction
+    BEGIN TRANSACTION;
+    
+    -- Performing SQL statements
+    
+    -- Committing the transaction
+    COMMIT;
+    
+    -- Alternatively, rolling back the transaction
+    ROLLBACK;
+    
+  </code></pre>
+  Output:
+  <pre><code>
+    Transaction committed successfully.
+Transaction rolled back.
+
+  </code></pre>
+ </p>
+</div>
+
+<div class="explanation" id="joins">
+  <h2>Joins</h2>
+ <p> 
+  Example:
+  <pre><code>
+    -- Retrieving employee names along with their department names using INNER JOIN
+    SELECT employees.name, departments.department_name
+    FROM employees
+    INNER JOIN departments ON employees.department_id = departments.id;
+    
+  </code></pre>
+  Output:
+  <pre><code>
+    name           | department_name
+-------------------------------
+John Doe       | Sales
+Jane Smith     | Marketing
+Michael Johnson| HR
+
+  </code></pre>
+ </p>
+</div>
+  
+<div class="explanation" id="set_operators">
+  <h2>SET Operators</h2>
+ <p> 
+  Example:
+  <pre><code>
+    -- Retrieving a combined list of current and former employees using UNION
+    SELECT * FROM employees
+    UNION
+    SELECT * FROM former_employees;
+    
+  </code></pre>
+  Output:
+  <pre><code>
+    Combined list of current and former employees.
+ </code></pre>
+ </p>
+</div>
+ 
+<script src="script.js"></script>
+
+</body>
+</html>
+
+
+
